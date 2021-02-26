@@ -70,8 +70,6 @@ public void OnClientPostAdminCheck(int client)
 		
 	Format(url, sizeof(url), "https://csgo.wanmei.com/api-user/isOnline?steamIds=%s", g_sClientAuth[client]);
 	
-	PrintToServer("Sent");
-	
 	System2HTTPRequest httpRequest = new System2HTTPRequest(CNSTCallback, url);
 	httpRequest.Timeout = 15;
 	httpRequest.Any = client;
