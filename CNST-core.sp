@@ -70,6 +70,8 @@ public void OnClientPostAdminCheck(int client)
 		
 	Format(url, sizeof(url), "https://csgo.wanmei.com/api-user/isOnline?steamIds=%s", g_sClientAuth[client]);
 	
+	PrintToServer("Sent");
+	
 	System2HTTPRequest httpRequest = new System2HTTPRequest(CNSTCallback, url);
 	httpRequest.Timeout = 15;
 	httpRequest.Any = client;
@@ -113,10 +115,7 @@ void CNSTCallback(bool success, const char[] error, System2HTTPRequest request, 
 			char isOnline[16];
 			JSON_Object result = obj.GetObject("result");
 			result.GetString(g_sClientAuth[client], isOnline, sizeof(isOnline));
-			if(StrEqual(isOnline, "online", true))
-				g_bIsPWPlayer[client] = true;
-			else
-				g_bIsPWPlayer[client] = false;
+			g_bIsPWPlayer[client] = StrEqual(isOnline, "online", true) ? true:false;
 				
 			CallOnConnected(client);
 				
